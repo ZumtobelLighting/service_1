@@ -1,36 +1,54 @@
-# Service 1
+# Simple Logging Service
 
-Um serviço em Go que pode ser implantado com ArgoCD.
+A lightweight Go service that outputs log messages at regular intervals. This service is containerized and ready to deploy to Kubernetes or any container orchestration platform.
 
-## CI/CD Workflow
+## Features
 
-Este projeto utiliza GitHub Actions para automatizar o processo de build, versionamento e publicação da imagem Docker.
+- Simple logging output every 5 seconds
+- Configurable version via environment variable
+- Containerized with multi-stage Docker build
+- Automated build and publish pipeline with GitHub Actions
 
-### Processo de CI/CD
+## Building Locally
 
-1. **Build**: O código Go é compilado
-2. **Testes**: Os testes unitários são executados
-3. **Versionamento**: Uma versão é gerada com base em:
-   - Tag (se disponível): v1.0.0
-   - Commit hash + timestamp (para branches): abcdef-20230615123456
-4. **Docker**: A imagem Docker é construída
-5. **Publicação**: A imagem é publicada no GitHub Container Registry (ghcr.io)
+To build the service locally:
 
-### Tags das imagens
-
-As imagens são publicadas com as seguintes tags:
-- Tag da versão semântica (ex: `v1.0.0`)
-- Nome da branch (ex: `main`)
-- Hash curto do commit (ex: `sha-abc123`)
-
-### Exemplos de uso
-
-Você pode referenciar as imagens em seu Kubernetes ou docker-compose:
-
-```yaml
-image: ghcr.io/seu-usuario/service_1:v1.0.0
+```bash
+go build -o main .
 ```
 
-## Deployando com Helm e ArgoCD
+## Running Locally
 
-O projeto inclui um Helm chart com suporte a múltiplos ambientes. Veja a documentação do chart [aqui](./helm/README.md).
+To run the service:
+
+```bash
+./main
+```
+
+## Docker
+
+### Building the Docker Image
+
+```bash
+docker build -t simple-logging-service:latest .
+```
+
+### Running the Docker Container
+
+```bash
+docker run -e VERSION=local-test simple-logging-service:latest
+```
+
+## CI/CD Pipeline
+
+This repository includes a GitHub Actions workflow that:
+
+1. Generates a version number based on git tags or commit hash
+2. Builds the Docker image with the version information
+3. Publishes the image to GitHub Container Registry (ghcr.io)
+
+The workflow runs on pushes to the main branch, pull requests, and when tags are created.
+
+## Environment Variables
+
+- `VERSION`: Sets the version displayed in logs (default: "dev")
