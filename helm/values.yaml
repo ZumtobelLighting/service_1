@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: service-1
+  repository: ghcr.io/zumtobellighting/service_1
   pullPolicy: IfNotPresent
   tag: "latest"
 
