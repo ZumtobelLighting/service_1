@@ -17,6 +17,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write # Adicione esta linha
 
     steps:
       - name: Checkout code
@@ -47,6 +48,7 @@ jobs:
         with:
             role-to-assume: arn:aws:iam::449750626230:role/GithubActionECRPush
             aws-region: eu-central-1
+            audience: sts.amazonaws.com # Adicione esta linha
 
       - name: Login to Amazon ECR
         id: login-ecr
