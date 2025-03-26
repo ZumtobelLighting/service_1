@@ -4,7 +4,7 @@ metadata:
   name: argocd-application-controller
   namespace: argocd
 spec:
-  project: keyture
+  project: default
 
   source:
     repoURL: https://github.com/ZumtobelLighting/service_1.git
