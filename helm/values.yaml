@@ -4,7 +4,7 @@ replicaCount: 1
 image:
   repository: 449750626230.dkr.ecr.eu-central-1.amazonaws.com/service_1
   pullPolicy: Always
-  tag: "0012547-20250326122841"
+  tag: "latest"
 
 # Configuração de ambiente
 environment: dev  # Ambiente padrão (dev, staging, prod)
