@@ -1,36 +1,25 @@
-# Build stage
 FROM golang:1.21-alpine AS builder
 
 WORKDIR /app
 
-# Copy go.mod and go.sum files first for better caching
-COPY go.mod go.sum* ./
-RUN go mod download
-
-# Copy the source code
+# Copy the source from the current directory to the Working Directory inside the container
 COPY . .
 
-# Build the application
-ARG VERSION=dev
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-X main.Version=${VERSION}" -o service_1 ./...
+RUN go mod download
 
-# Final stage
-FROM alpine:3.18
+# Build the Go app
+RUN go build -o main .
 
-WORKDIR /app
+# Start a new stage from scratch
+FROM debian:bookworm-slim
 
-# Add non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates
 
-# Copy the binary from the builder stage
-COPY --from=builder /app/service_1 .
+RUN update-ca-certificates
 
-# Expose the port
-EXPOSE 8080
+# Copy the Pre-built binary file from the previous stage
+COPY --from=builder /app/main /app/main
 
-# Set environment variables
-ENV GIN_MODE=release
-
-# Command to run
-ENTRYPOINT ["./service_1"]
+# Command to run the executable
+ENTRYPOINT ["/app/main"]
