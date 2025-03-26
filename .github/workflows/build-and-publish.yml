@@ -42,19 +42,37 @@ jobs:
           IMAGE_NAME_LC=$(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
           echo "IMAGE_NAME_LC=$IMAGE_NAME_LC" >> $GITHUB_ENV
 
-      - name: Login to GitHub Container Registry
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+            role-to-assume: arn:aws:iam::449750626230:role/GithubActionECRPush
+            aws-region: eu-central-1
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:${{ env.VERSION }}
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.IMAGE_NAME_LC }}:${{ env.VERSION }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.IMAGE_NAME_LC }}:latest
           build-args: |
             VERSION=${{ env.VERSION }}
+            
+      - name: Update Helm chart image tag
+        if: github.event_name != 'pull_request'
+        run: |
+          # Update the image tag in the Helm values file
+          sed -i "s|tag: .*|tag: \"${{ env.VERSION }}\"|" ./helm/values.yaml
+          
+          # Optionally commit and push the changes if you have the right permissions
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+            git config --global user.name "GitHub Actions"
+            git config --global user.email "actions@github.com"
+            git add ./helm/values.yaml
+            git commit -m "Update Helm chart image tag to ${{ env.VERSION }}"
+            git push
