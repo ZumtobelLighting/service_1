@@ -4,7 +4,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/zumtobellighting/service_1
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "0012547-20250326122841"
 
 # Configuração de ambiente
 environment: dev  # Ambiente padrão (dev, staging, prod)

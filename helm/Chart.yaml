@@ -2,5 +2,5 @@ apiVersion: v2
 name: service-1
 description: A Helm chart for service_1 Go application
 type: application
-version: 0012547-20250326122841
-appVersion: "0012547-20250326122841"
+version: 0.1.0
+appVersion: "1.0.0"
