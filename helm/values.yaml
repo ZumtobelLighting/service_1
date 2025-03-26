@@ -10,7 +10,7 @@ image:
 environment: dev  # Ambiente padrão (dev, staging, prod)
 environmentConfigs:
   dev:
-    replicaCount: 2
+    replicaCount: 1
     resources:
       limits:
         cpu: 100m
