@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository_owner }}/${{ github.event.repository.name }}
 
 jobs:
   build-and-publish:
@@ -37,6 +37,11 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
+      - name: Set lowercase image name
+        run: |
+          IMAGE_NAME_LC=$(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
+          echo "IMAGE_NAME_LC=$IMAGE_NAME_LC" >> $GITHUB_ENV
+
       - name: Login to GitHub Container Registry
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v2
@@ -50,6 +55,6 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:${{ env.VERSION }}
           build-args: |
             VERSION=${{ env.VERSION }}
