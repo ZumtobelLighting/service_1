@@ -18,3 +18,93 @@ env:
       value: "5432"    
 
 # Additional microservices can be added here with their respective configurations.
+
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "microservice1.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this.
+If release name contains non-alphanumeric characters, replace them with dashes.
+If they start or end with dashes, trim them.
+*/}}
+{{- define "microservice1.fullname" -}}
+{{- $fullName := printf "%s-%s" .Release.Name (include "microservice1.name" .) -}}
+{{- if .Values.fullnameOverride -}}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- $fullName | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Create chart name to be used as the basis for labels and annotations.
+*/}}
+{{- define "microservice1.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Common labels
+*/}}
+{{- define "microservice1.labels" -}}
+helm.sh/chart: {{ include "microservice1.chart" . }}
+{{ include "microservice1.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
+
+{{/*
+Selector labels
+*/}}
+{{- define "microservice1.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "microservice1.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "microservice1.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create -}}
+{{- default (include "microservice1.fullname" .) .Values.serviceAccount.name -}}
+{{- else -}}
+{{- default "default" .Values.serviceAccount.name -}}
+{{- end -}}
+{{- end -}}
+
+# filepath: helm-chart/charts/microservice1/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "microservice1.fullname" . }}
+  labels:
+    {{- include "microservice1.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      {{- include "microservice1.selectorLabels" . | nindent 8 }}
+  template:
+    metadata:
+      labels:
+        {{- include "microservice1.selectorLabels" . | nindent 12 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          env:
+          {{- range .Values.env.regular }}
+            - name: {{ .name }}
+              value: {{ .value }}
+          {{- end }}
