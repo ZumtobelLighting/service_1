@@ -1,20 +1,11 @@
 services:
-  service1:
-    image:
-      replicas: 2
-      repository: nginx
-      # This sets the pull policy for images.
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: ""
-  service2:
-    image:
-      replicas: 1
-      repository: nginx
-      # This sets the pull policy for images.
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: ""
+  frontend: nginx:latest
+  backend: myapi:1.2.3
+  database:
+    image: postgres:13
+    port: 5432
+    replicas: 2
 
 config:
-  VARIAVEL_GLOBAL: "dev-mode"
+  ENVIRONMENT: "development"
+  LOG_LEVEL: "debug"

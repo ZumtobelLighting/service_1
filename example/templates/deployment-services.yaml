@@ -1,0 +1,87 @@
+{{- if .Values.services }}
+{{- range $serviceName, $serviceValue := .Values.services }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "example.fullname" $ }}-{{ $serviceName }}
+  labels:
+    {{- include "example.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $serviceName }}
+spec:
+  {{- if (kindIs "map" $serviceValue) }}
+  replicas: {{ $serviceValue.replicas | default $.Values.serviceDefaults.replicas }}
+  {{- else }}
+  replicas: {{ $.Values.serviceDefaults.replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "example.selectorLabels" $ | nindent 6 }}
+      app.kubernetes.io/component: {{ $serviceName }}
+  template:
+    metadata:
+      labels:
+        {{- include "example.selectorLabels" $ | nindent 8 }}
+        app.kubernetes.io/component: {{ $serviceName }}
+      {{- with $.Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with $.Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "example.serviceAccountName" $ }}
+      securityContext:
+        {{- toYaml $.Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ $serviceName }}
+          securityContext:
+            {{- toYaml $.Values.securityContext | nindent 12 }}
+          {{- if (kindIs "map" $serviceValue) }}
+          image: "{{ $serviceValue.image }}"
+          imagePullPolicy: {{ $serviceValue.pullPolicy | default $.Values.serviceDefaults.pullPolicy }}
+          {{- else }}
+          image: "{{ $serviceValue }}"
+          imagePullPolicy: {{ $.Values.serviceDefaults.pullPolicy }}
+          {{- end }}
+          ports:
+            - name: http
+              {{- if and (kindIs "map" $serviceValue) $serviceValue.port }}
+              containerPort: {{ $serviceValue.port }}
+              {{- else }}
+              containerPort: {{ $.Values.serviceDefaults.port }}
+              {{- end }}
+              protocol: TCP
+          {{- if $.Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml $.Values.livenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if $.Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml $.Values.readinessProbe | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml $.Values.resources | nindent 12 }}
+          {{- if $.Values.config }}
+          env:
+            {{- range $key, $value := $.Values.config }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          {{- end }}
+      {{- with $.Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
+{{- end }}

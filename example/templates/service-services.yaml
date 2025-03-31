@@ -1,0 +1,26 @@
+{{- if .Values.services }}
+{{- range $serviceName, $serviceValue := .Values.services }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "example.fullname" $ }}-{{ $serviceName }}
+  labels:
+    {{- include "example.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $serviceName }}
+spec:
+  type: {{ $.Values.service.type }}
+  ports:
+    - port: {{ $.Values.service.port }}
+      {{- if and (kindIs "map" $serviceValue) $serviceValue.port }}
+      targetPort: {{ $serviceValue.port }}
+      {{- else }}
+      targetPort: {{ $.Values.serviceDefaults.port }}
+      {{- end }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "example.selectorLabels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $serviceName }}
+{{- end }}
+{{- end }}

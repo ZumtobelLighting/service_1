@@ -13,6 +13,26 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+# Multiple services configuration
+# You can specify multiple services to deploy with minimal configuration
+# Example:
+# services:
+#   service1: nginx:latest
+#   service2: redis:6
+#   service3:
+#     image: mysql:5.7
+#     replicas: 2
+#     port: 3306
+#
+# You can use either a string (just the image) or an object with more detailed configuration
+services: {}
+
+# Default configuration for all services
+serviceDefaults:
+  replicas: 1
+  port: 80
+  pullPolicy: IfNotPresent
+
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
 # This is to override the chart name.
