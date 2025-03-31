@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.services.service-1.image | split ":" | first }}
+  labels:
+    app: {{ .Release.Name }}-service-1
+spec:
+  replicas: {{ .Values.services.service-1.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-service-1
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-service-1
+    spec:
+      containers:
+        - name: service-1
+          image: {{ .Values.services.service-1.image }}
+          ports:
+            - containerPort: 80

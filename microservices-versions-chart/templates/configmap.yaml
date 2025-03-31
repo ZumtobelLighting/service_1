@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: microservices-versions
-data:
-  microservice1-version: {{ .Values.microservice1.version | quote }}
-  microservice2-version: {{ .Values.microservice2.version | quote }}
-  microservice3-version: {{ .Values.microservice3.version | quote }}
