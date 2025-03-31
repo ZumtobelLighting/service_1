@@ -5,9 +5,13 @@ type: application
 version: 1.0.0
 appVersion: 1.0.0
 dependencies:
-  - name: microservice-a
-    version: 1.0.1
-    repository: "https://github.com/ZumtobelLighting/service_1"
-  - name: microservice-b
-    version: 1.0.2
-    repository: "https://github.com/ZumtobelLighting/service_1"
+  - name: dev-environment
+    version: 1.0.0
+    repository: "file:./dev"
+    alias: dev
+    condition: dev.enabled
+  - name: qa-environment
+    version: 1.0.0
+    repository: "file:./qa"
+    alias: qa
+    condition: qa.enabled

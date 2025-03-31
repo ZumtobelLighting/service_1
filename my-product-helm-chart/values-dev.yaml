@@ -1,0 +1,19 @@
+dev:
+  enabled: true
+qa:
+  enabled: false
+
+# You can override microservice values for dev environment here
+microservice-a:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 0.5
+      memory: 512Mi
+  
+microservice-b:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 0.5
+      memory: 512Mi
