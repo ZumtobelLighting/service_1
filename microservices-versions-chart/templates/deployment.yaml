@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-microservices
+  labels:
+    app: {{ .Release.Name }}-microservices
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-microservices
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-microservices
+    spec:
+      containers:
+        {{- range $service, $version := .Values.microservices }}
+        - name: {{ $service }}
+          image: {{ $service }}:{{ $version }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+        {{- end }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecret }}
