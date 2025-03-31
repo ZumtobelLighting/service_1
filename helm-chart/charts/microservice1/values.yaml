@@ -1,0 +1,26 @@
+apiVersion: v1
+appVersion: "1.0.0"
+description: A Helm chart for microservice1
+name: microservice1
+version: 0.1.0
+
+replicaCount: 1
+
+image:
+  repository: nanajanashia/argocd-app
+  tag: "1.1"
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  name: default
+  type: ClusterIP
+  port: 8080
+
+resources: {}
+  
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
