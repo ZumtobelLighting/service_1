@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+{{- range $key, $value := .Values.labels }}
+    "{{ $key }}": "{{ $value }}"
+{{- end }}
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+    - host: {{ if eq .Release.Namespace "prod" }} {{ .Values.domainprod }} {{ else }}{{ .Release.Namespace }}.{{ .Values.domain }}{{ end }}
+      http:
+        paths:
+          - path: /api
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ .Release.Name }}
+                port:
+                 number: 80
+  tls:
+    - hosts:
+         - {{ if eq .Release.Namespace "prod" }} {{ .Values.domainprod }} {{ else }}{{ .Release.Namespace }}.{{ .Values.domain }}{{ end }}
+      secretName: {{ .Release.Namespace }}-{{ .Release.Name }}-cert

@@ -1,0 +1,15 @@
+
+env:
+  # regular variables - can be committed
+  regular:
+    KeyVault: https://companionsuite-test.vault.azure.net
+    AZURE_CLIENT_ID: $AZURE_CLIENT_ID
+    CorsEndpoints__0: https://dev.companionsuite.tridonic.cloud/
+    CorsEndpoints__1: https://test.companionsuite.tridonic.dev
+    ConnectionStrings__UserDatabase: "Server=postgres-postgresql;Port=5432;Database=UserDatabase;User Id=postgres;Password=Postgres123"
+    ENVIRONMENT_NAME: Development
+
+  # sensitive variables - please do not commit them, only fill them from GitLab during templating
+  secret:
+    AZURE_CLIENT_SECRET: $AZURE_CLIENT_SECRET
+

@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image: registry.dev.zgrp.net/companionsuite/backend/userwebservice
+imagePullSecret: zgrp
+imagePullPolicy: Always
+
+resources:
+  limits:
+    memory: 768Mi
+    cpu: 900m
+  requests:
+    memory: 256Mi
+    cpu: 50m
+
+env:
+  # regular variables - can be committed
+  regular:
+
+  # sensitive variables - please do not commit them, only fill them from GitLab during templating
+  secret:
+
+ports:
+  http: 80
+  https: 443
+  public: 40443
+  management: 9090
+
+waitOnUpdateFor: 600

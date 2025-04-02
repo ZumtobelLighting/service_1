@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "app.name" . }}
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+{{- range $key, $value := .Values.labels }}
+    "{{ $key }}": "{{ $value }}"
+{{- end }}
+spec:
+  progressDeadlineSeconds: {{ .Values.waitOnUpdateFor }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "app.name" . }}
+      release: {{ .Release.Name }}
+{{- range $key, $value := .Values.labels }}
+      "{{ $key }}": "{{ $value }}"
+{{- end }}
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "9090"
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/prometheus"
+      labels:
+        app: {{ template "app.name" . }}
+        release: {{ .Release.Name }}
+{{- range $key, $value := .Values.labels }}
+        "{{ $key }}": "{{ $value }}"
+{{- end }}
+    spec:
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecret }}
+      containers:
+      - name: {{ template "app.name" . }}
+        image: {{ .Values.image }}:{{ .Chart.Version }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        args:
+{{- range $_, $value := .Values.args }}
+        - "{{ $value }}"
+{{- end }}
+        ports:
+{{- include "ports.pod" . | indent 6 }}
+        env:
+{{- include "env.secrets" . | indent 6 }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+
