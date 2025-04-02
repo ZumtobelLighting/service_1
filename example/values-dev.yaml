@@ -10,16 +10,15 @@ services:
     replicas: 1
 
 # Adicionando referência a um microserviço externo
-#dependencies:
-#  JJ-pastor:
-#    enabled: true
-#    repository: "https://github.com/ZumtobelLighting/service_1/chart"
-#    name: "JJ-pastor"
-#    version: "1.0.0"
-#    values:
-#      environment: "dev"
-#      replicas: 2
-      # Outras configurações específicas do seu microserviço
+dependencies:
+  JJ-pastor:
+    enabled: true
+    repository: "https://github.com/ZumtobelLighting/service_1/chart"
+    name: "JJ-pastor"
+    version: "1.0.0"
+    values:
+      environment: "dev"
+      replicas: 2
 
 config:
   ENVIRONMENT: "development"
