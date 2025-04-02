@@ -1,0 +1,9 @@
+apiVersion: v2
+name: helm-umbrella
+description: Umbrella chart para vários serviços
+version: 1.0.0
+
+dependencies:
+  - name: service-hello
+    version: 0.1.0
+    repository: "https://nexus.tridonic.dev/repository/tridonic-helm/"
