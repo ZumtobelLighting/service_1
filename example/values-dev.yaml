@@ -7,10 +7,10 @@ services:
     replicas: 2
   database: 
     image: nginx:latest
-    replicas: 20
+    replicas: 2
   cenas: 
     image: nginx:latest
-    replicas: 20
+    replicas: 2
 config:
   ENVIRONMENT: "development"
   LOG_LEVEL: "debug"
