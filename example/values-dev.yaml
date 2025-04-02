@@ -1,11 +1,13 @@
 services:
-  frontend: nginx:latest
-  backend: nginx:latest
-  database: nginx:latest
-  cenas: nginx:latest
-
-frontend:
-  replicas: 2
+  frontend:
+    image: nginx:latest
+    replicas: 2
+  backend: 
+    image: nginx:latest
+  database: 
+    image: nginx:latest
+  cenas: 
+    image: nginx:latest
 
 config:
   ENVIRONMENT: "development"
