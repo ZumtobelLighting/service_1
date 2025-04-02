@@ -2,7 +2,6 @@ services:
   frontend: nginx:latest
   backend: nginx:latest
   database: nginx:latest
-    replicas: 3
 
 config:
   ENVIRONMENT: "development"
