@@ -1,9 +1,9 @@
 services:
   frontend: nginx:latest
   backend: nginx:latest
+    replicas: 2
   database:
-    image: postgres:12
-    port: 5432
+    image: nginx:latest
     replicas: 2
 
 config:
