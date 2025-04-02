@@ -1,14 +1,16 @@
 services:
   frontend:
     image: nginx:latest
-    replicas: 2
+    replicas: 20
   backend: 
     image: nginx:latest
+    replicas: 2
   database: 
     image: nginx:latest
+    replicas: 20
   cenas: 
     image: nginx:latest
-
+    replicas: 20
 config:
   ENVIRONMENT: "development"
   LOG_LEVEL: "debug"
