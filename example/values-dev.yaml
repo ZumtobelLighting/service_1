@@ -13,9 +13,10 @@ services:
 dependencies:
   JJ-pastor:
     enabled: true
-    repository: "https://github.com/ZumtobelLighting/service_1/chart"
+    repository: "https://zumtobellighting.github.io/service_1"
     name: "JJ-pastor"
     version: "1.0.0"
+    chart: "chart/JJ-pastor"  # Add this line to specify the chart location
     values:
       environment: "dev"
       replicas: 2
