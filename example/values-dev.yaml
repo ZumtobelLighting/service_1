@@ -2,7 +2,6 @@ services:
   frontend: nginx:latest
   backend: nginx:latest
   database: nginx:latest
-  cenas: nanajanashia/argocd-app:1.0
 
 config:
   ENVIRONMENT: "development"
