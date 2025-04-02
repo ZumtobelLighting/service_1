@@ -3,7 +3,7 @@ services:
   backend: nginx:latest
   database: nginx:latest
   cenas: nginx:latest
-    replicaCount: 2
+    replica: 2
 
 config:
   ENVIRONMENT: "development"
