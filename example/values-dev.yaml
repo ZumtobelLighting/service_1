@@ -4,6 +4,9 @@ services:
   database: nginx:latest
   cenas: nginx:latest
 
+frontend:
+  replicas: 2
+
 config:
   ENVIRONMENT: "development"
   LOG_LEVEL: "debug"
