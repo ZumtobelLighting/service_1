@@ -1,7 +1,7 @@
 services:
   frontend: nginx:latest
-  backend: nginx:latest
-  database: nginx:latest
+  #backend: nginx:latest
+  #database: nginx:latest
 
 config:
   ENVIRONMENT: "development"
