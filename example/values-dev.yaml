@@ -1,8 +1,8 @@
 services:
   frontend: nginx:latest
-  backend: myapi:1.2.3
+  backend: nginx:latest
   database:
-    image: postgres:13
+    image: postgres:12
     port: 5432
     replicas: 2
 
