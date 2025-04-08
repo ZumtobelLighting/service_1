@@ -9,4 +9,4 @@ dependencies:
     repository: "https://nexus.tridonic.dev/repository/tridonic-helm/"
   - name: template-service
     version: 0.3.2
-    repository: "ghcr.io/zumtobellighting/template-service"
+    repository: "https://ghcr.io/zumtobellighting/template-service"
