@@ -5,7 +5,7 @@ version: 2.0.0
 
 dependencies:
   - name: template-service
-    version: 0.0.1-c3df240
+    version: 0.3.1-6baf133
     repository: "oci://449750626230.dkr.ecr.eu-central-1.amazonaws.com"
   #- name: nats
   #  version: "0.19.4"
