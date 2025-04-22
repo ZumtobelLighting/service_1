@@ -2,5 +2,8 @@ dependencies:
 - name: service-hello
   repository: https://nexus.tridonic.dev/repository/tridonic-helm/
   version: 0.1.0
+- name: service-hello-1
+  repository: https://nexus.tridonic.dev/repository/tridonic-helm/
+  version: 0.1.0
 digest: sha256:f314bca325505497a6ab0fb7ceae7cf0204eec5f0942200581693c8b27e7489b
 generated: "2025-04-02T13:56:56.260785649+01:00"
