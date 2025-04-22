@@ -1,8 +1,5 @@
 service-hello:
   replicaCount: 1
-  image:
-    repository: 449750626230.dkr.ecr.eu-central-1.amazonaws.com/template-service
-    tag: "sha256:62fa1404d8eca48f045af069dcddd16f129f834fedc999f908d047b742fb40d1"
   serviceAccount:
     create: true
   ingress:
