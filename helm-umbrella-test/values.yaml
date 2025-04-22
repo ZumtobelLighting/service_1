@@ -1,5 +1,5 @@
 service-hello:
-  replicaCount: 2
+  replicaCount: 4
   serviceAccount:
     create: true
   ingress:
