@@ -6,3 +6,11 @@ service-hello:
     enabled: false
   autoscaling:
     enabled: false
+service-hello-1:
+  replicaCount: 1
+  serviceAccount:
+    create: true
+  ingress:
+    enabled: false
+  autoscaling:
+    enabled: false
