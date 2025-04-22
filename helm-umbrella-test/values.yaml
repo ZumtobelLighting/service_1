@@ -1,4 +1,4 @@
-service-hello:
+template-service:
   replicaCount: 4
   serviceAccount:
     create: true
