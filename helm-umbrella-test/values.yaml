@@ -1,11 +1,11 @@
-#template-service:
-#  replicaCount: 1
-#  serviceAccount:
-#    create: true
-#  ingress:
-#    enabled: false
-#  autoscaling:
-#    enabled: false
+template-service:
+  replicaCount: 3
+  serviceAccount:
+    create: true
+  ingress:
+    enabled: false
+  autoscaling:
+    enabled: false
 
 # Configurações para o NATS (apenas se precisar substituir os padrões)
 # Se você usou um 'alias' no Chart.yaml, use esse alias como chave aqui.
