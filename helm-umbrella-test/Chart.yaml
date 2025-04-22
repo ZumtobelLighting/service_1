@@ -7,3 +7,10 @@ dependencies:
   - name: service-hello
     version: 0.0.1-c3df240
     repository: "oci://449750626230.dkr.ecr.eu-central-1.amazonaws.com/template-service"
+  - name: nats # Nome do chart NATS
+    # Escolha a versão desejada do chart NATS
+    version: "0.19.4" # Exemplo de versão, verifique a mais recente/adequada
+    # Repositório oficial do NATS Helm chart
+    repository: "https://nats-io.github.io/k8s/helm/charts/"
+    # Opcional: alias se quiser referenciar o NATS com outro nome nos values.yaml
+    # alias: nats-cluster

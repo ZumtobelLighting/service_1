@@ -7,3 +7,15 @@ service-hello:
   autoscaling:
     enabled: false
 
+# Configurações para o NATS (apenas se precisar substituir os padrões)
+# Se você usou um 'alias' no Chart.yaml, use esse alias como chave aqui.
+# Exemplo:
+# nats:
+#   replicaCount: 3 # Exemplo de substituição do número de réplicas
+#   nats:
+#     jetstream:
+#       enabled: true # Exemplo de ativação do JetStream
+#     logging:
+#       debug: false
+#       trace: false
+
