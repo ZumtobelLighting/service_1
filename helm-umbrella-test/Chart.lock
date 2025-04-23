@@ -2,8 +2,11 @@ dependencies:
 - name: template-service-chart
   repository: oci://449750626230.dkr.ecr.eu-central-1.amazonaws.com
   version: 0.0.1-a6d3874
+- name: nats
+  repository: https://nats-io.github.io/k8s/helm/charts/
+  version: 0.19.4
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 12.0.0
-digest: sha256:7634cf716016ed9bc772bc3f23502ab036a8a49bbcf206419976cb46308ccc7f
-generated: "2025-04-23T14:39:19.767477883+01:00"
+digest: sha256:d614948c006b148195053fa19c0aa0652056be3a9d3957599dfb800ebe897641
+generated: "2025-04-23T14:46:44.545820768+01:00"
