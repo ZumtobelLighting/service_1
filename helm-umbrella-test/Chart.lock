@@ -2,17 +2,5 @@ dependencies:
 - name: template-service-chart
   repository: oci://449750626230.dkr.ecr.eu-central-1.amazonaws.com
   version: 0.0.1-a6d3874
-- name: nats
-  repository: https://nats-io.github.io/k8s/helm/charts/
-  version: 0.19.4
-- name: redis
-  repository: https://charts.bitnami.com/bitnami
-  version: 17.1.0
-- name: postgresql
-  repository: https://charts.bitnami.com/bitnami
-  version: 12.0.0
-- name: timescaledb-single
-  repository: https://charts.timescale.com/
-  version: 0.33.1
-digest: sha256:e70de1ac6ccbd468c8f07f1ace42dc83bf8aecd8326e6a55c0bc1e335cde149d
-generated: "2025-04-23T15:00:23.475030744+01:00"
+digest: sha256:711a819ee2c0ecffb8722eb2de76d667c19c69465068fa34e9376d936f117081
+generated: "2025-04-23T15:46:16.62947896+01:00"
