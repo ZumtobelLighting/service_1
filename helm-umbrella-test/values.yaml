@@ -1,5 +1,5 @@
-template-service:
-  replicaCount: 3
+template-service-chart:
+  replicaCount: 1
   serviceAccount:
     create: true
   ingress:

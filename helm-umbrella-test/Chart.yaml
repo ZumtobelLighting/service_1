@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helm-umbrella
 description: Umbrella chart para vários serviços
-version: 2.0.0
+version: 2.0.1
 
 dependencies:
   - name: template-service-chart
