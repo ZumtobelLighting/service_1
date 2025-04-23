@@ -7,9 +7,9 @@ dependencies:
   - name: template-service-chart
     version: 0.0.1-a6d3874
     repository: "oci://449750626230.dkr.ecr.eu-central-1.amazonaws.com"
-  #- name: nats
-  #  version: "0.19.4"
-  #  repository: "https://nats-io.github.io/k8s/helm/charts/"
+  - name: nats
+    version: "0.19.4"
+    repository: "https://nats-io.github.io/k8s/helm/charts/"
   #- name: redis
     #version: "17.0.0"
     #repository: "https://charts.bitnami.com/bitnami"
