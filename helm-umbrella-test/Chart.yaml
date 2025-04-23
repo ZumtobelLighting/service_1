@@ -16,6 +16,6 @@ dependencies:
   - name: postgresql
     version: "12.0.0"
     repository: "https://charts.bitnami.com/bitnami"
-  - name: timescaledb
-    version: "0.10.1"
-    repository: "https://charts.timescale.com"
+  - name: timescaledb-single
+    version: "0.33.1"
+    repository: "https://charts.timescale.com/"

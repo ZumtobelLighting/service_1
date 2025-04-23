@@ -11,5 +11,8 @@ dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 12.0.0
-digest: sha256:9aa7415c3896ca4669fb06de42d22c2eb457dc29d8dd4269b622edbf489bdc74
-generated: "2025-04-23T14:49:07.26693939+01:00"
+- name: timescaledb-single
+  repository: https://charts.timescale.com/
+  version: 0.33.1
+digest: sha256:e70de1ac6ccbd468c8f07f1ace42dc83bf8aecd8326e6a55c0bc1e335cde149d
+generated: "2025-04-23T15:00:23.475030744+01:00"
